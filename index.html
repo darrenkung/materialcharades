@@ -109,12 +109,12 @@
     <div class="max-w-6xl mx-auto">
         <header class="text-center mb-8">
             <h1 class="game-title text-4xl md:text-6xl mb-2 text-white">MATERIAL CHARADES</h1>
-            <p class="text-slate-400">Spin the wheels and act out the material combination!</p>
+            <p class="text-slate-400">Instructions: One person faces away from the screen. The rest act out the physical properties of the material (no talking!). The guesser tries to name the correct material!</p>
         </header>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             <div class="flex flex-col items-center">
-                <span class="mb-2 font-bold text-red-400 uppercase tracking-widest text-sm">Material</span>
+                <span class="mb-2 font-bold text-red-400 uppercase tracking-widest text-sm">Material (Guess this!)</span>
                 <div class="wheel-container w-full rounded-xl relative">
                     <div class="pointer"></div>
                     <div id="wheel-0" class="wheel-strip"></div>
@@ -150,11 +150,6 @@
             <button id="spin-btn" class="btn-spin px-12 py-6 rounded-full text-2xl font-black tracking-tighter hover:brightness-110 active:scale-95">
                 SPIN WHEELS!
             </button>
-
-            <div id="result-box" class="glass-panel p-6 rounded-2xl w-full max-w-2xl text-center opacity-0 transition-opacity duration-500">
-                <h2 class="text-xl font-bold mb-2 text-slate-300">Your Prompt:</h2>
-                <p id="prompt-text" class="text-2xl md:text-3xl font-bold text-white leading-tight italic"></p>
-            </div>
         </div>
     </div>
 
@@ -216,7 +211,6 @@
         ];
 
         const ITEM_HEIGHT = 120;
-        const BUFFER_COUNT = 20; // Ensure enough items are always present
         
         let lastMaterialIdx = -1;
 
@@ -249,11 +243,8 @@
             if (audioCtx.state === 'suspended') audioCtx.resume();
             
             const spinBtn = document.getElementById('spin-btn');
-            const resultBox = document.getElementById('result-box');
-            const promptText = document.getElementById('prompt-text');
             
             spinBtn.disabled = true;
-            resultBox.classList.add('opacity-0');
 
             // 1. New Material Selection
             let materialIdx;
@@ -277,8 +268,6 @@
                 const listLength = list.length;
                 const targetIdx = currentSelections[i];
                 
-                // We always spin to the THIRD set of items in our tripled list
-                // to guarantee a long, full spin visual.
                 const finalOffset = (listLength * 2 + targetIdx) * ITEM_HEIGHT;
                 
                 const delay = i * 200;
@@ -293,25 +282,16 @@
                         clearInterval(tickInterval);
                         playDingSound();
                         
-                        // AFTER animation finishes, silently reset position to the center set
-                        // This allows for infinite spins without ever "running out" of vertical strip
                         setTimeout(() => {
                             strip.classList.add('no-transition');
                             const resetOffset = (listLength * 1 + targetIdx) * ITEM_HEIGHT;
                             strip.style.transform = `translateY(-${resetOffset}px)`;
-                            // Force reflow
                             strip.offsetHeight; 
                             strip.classList.remove('no-transition');
                         }, 100);
 
                         if (i === 3) {
                             setTimeout(() => {
-                                const m = materials[currentSelections[0]].name;
-                                const p1 = properties[currentSelections[1]].name;
-                                const p2 = properties[currentSelections[2]].name;
-                                const p3 = properties[currentSelections[3]].name;
-                                promptText.innerText = `A piece of ${m} that is known for its ${p1}, ${p2}, and ${p3}!`;
-                                resultBox.classList.remove('opacity-0');
                                 spinBtn.disabled = false;
                             }, 500);
                         }
