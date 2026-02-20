@@ -106,16 +106,17 @@
 </head>
 <body class="p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-4xl mx-auto">
         <header class="text-center mb-8">
             <h1 class="game-title text-4xl md:text-6xl mb-2 text-white">MATERIAL CHARADES</h1>
             <p class="text-slate-400">Instructions: One person faces away from the screen. The rest act out the physical properties of the material (no talking!). The guesser tries to name the correct material!</p>
         </header>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <!-- Updated grid to be 1 column on mobile and 2 columns on wider screens -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <div class="flex flex-col items-center">
                 <span class="mb-2 font-bold text-red-400 uppercase tracking-widest text-sm">Material (Guess this!)</span>
-                <div class="wheel-container w-full rounded-xl relative">
+                <div class="wheel-container w-full max-w-sm rounded-xl relative">
                     <div class="pointer"></div>
                     <div id="wheel-0" class="wheel-strip"></div>
                 </div>
@@ -123,7 +124,7 @@
 
             <div class="flex flex-col items-center">
                 <span class="mb-2 font-bold text-blue-400 uppercase tracking-widest text-sm">Property 1</span>
-                <div class="wheel-container w-full rounded-xl relative">
+                <div class="wheel-container w-full max-w-sm rounded-xl relative">
                     <div class="pointer"></div>
                     <div id="wheel-1" class="wheel-strip"></div>
                 </div>
@@ -131,7 +132,7 @@
 
             <div class="flex flex-col items-center">
                 <span class="mb-2 font-bold text-green-400 uppercase tracking-widest text-sm">Property 2</span>
-                <div class="wheel-container w-full rounded-xl relative">
+                <div class="wheel-container w-full max-w-sm rounded-xl relative">
                     <div class="pointer"></div>
                     <div id="wheel-2" class="wheel-strip"></div>
                 </div>
@@ -139,7 +140,7 @@
 
             <div class="flex flex-col items-center">
                 <span class="mb-2 font-bold text-yellow-400 uppercase tracking-widest text-sm">Property 3</span>
-                <div class="wheel-container w-full rounded-xl relative">
+                <div class="wheel-container w-full max-w-sm rounded-xl relative">
                     <div class="pointer"></div>
                     <div id="wheel-3" class="wheel-strip"></div>
                 </div>
